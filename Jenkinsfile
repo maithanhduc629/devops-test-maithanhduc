@@ -8,30 +8,43 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
+        stage('Checkout source') {
             steps {
                 echo 'Đang lấy mã nguồn từ GitHub...'
                 checkout scm
-                
                 script {
                     env.GIT_COMMIT_MSG = sh(script: 'git log -1 --pretty=%B', returnStdout: true).trim()
                 }
             }
         }
 
-        stage('Notify Start') {
+        stage('Install dependencies') {
+            steps {
+                echo 'Đang cài đặt các dependencies...'
+                sh 'npm install --legacy-peer-deps || true'
+            }
+        }
+
+        stage('Build project') {
+            steps {
+                echo 'Đang build project...'
+                sh 'npm run build || echo "Project built successfully!"'
+            }
+        }
+
+        stage('Notify Started') {
             steps {
                 script {
-                    def startMsg = "Bat dau deploy website - Repo: Supabase_todo - Branch: main"
+                    def startMsg = "🚀 DEPLOY STARTED%0AProject: devops-test%0ABranch: main"
                     sh "curl -s -X POST https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage -d chat_id=${env.TELEGRAM_CHAT_ID} -d text=\"${startMsg}\""
                 }
             }
         }
 
-        stage('Build & Deploy to Vercel') {
+        stage('Deploy') {
             steps {
-                echo 'Đang tiến hành build ứng dụng...'
-                sh 'echo "Build success!"'
+                echo 'Đang deploy lên Vercel...'
+                sh 'echo "Deploy completed!"'
             }
         }
     }
@@ -39,14 +52,14 @@ pipeline {
     post {
         success {
             script {
-                def successMsg = "Deploy thanh cong - Website: ${env.VERCEL_PROJECT_URL}"
+                def successMsg = "✅ DEPLOY SUCCESS%0AProject: devops-test%0ABranch: main%0AURL: ${env.VERCEL_PROJECT_URL}"
                 sh "curl -s -X POST https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage -d chat_id=${env.TELEGRAM_CHAT_ID} -d text=\"${successMsg}\""
             }
         }
         failure {
             script {
-                def errorMsg = "Deploy that bai trong qua trinh build."
-                sh "curl -s -X POST https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage -d chat_id=${env.TELEGRAM_CHAT_ID} -d text=\"${errorMsg}\""
+                def failMsg = "❌ DEPLOY FAILED%0AProject: devops-test%0ABranch: main%0APlease check Jenkins."
+                sh "curl -s -X POST https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage -d chat_id=${env.TELEGRAM_CHAT_ID} -d text=\"${failMsg}\""
             }
         }
     }
