@@ -6,7 +6,7 @@ pipeline {
         TELEGRAM_CHAT_ID = '8678496989'
         VERCEL_PROJECT_URL = 'https://supabase-todo-d9nqvgtkb-maithanhduc629-9178.vercel.app/'
         // Đổi thành true nếu muốn test lỗi (Failure), false nếu muốn chạy thành công (Success)
-        FORCE_FAIL = false
+        FORCE_FAIL = true
     }
 
     stages {
