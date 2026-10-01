@@ -3,100 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio - Mai Thanh Đức</title>
+    <title>Ứng dụng Supabase Cơ Bản</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
         body {
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            color: #fff;
-            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
             display: flex;
             justify-content: center;
-            align-items: center;
-            padding: 20px;
         }
-        .card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 40px;
-            max-width: 600px;
+        .container {
             width: 100%;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            text-align: center;
-        }
-        .avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: #fff;
-            color: #1e3c72;
-            font-size: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px auto;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-        h1 {
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
-        .subtitle {
-            font-size: 16px;
-            color: #00d2ff;
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-        .info {
-            text-align: left;
-            background: rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            background: white;
             padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        .info p {
-            margin-bottom: 10px;
-            font-size: 15px;
-        }
-        .info p span {
-            font-weight: bold;
-            color: #ffecd2;
-        }
-        .badge {
-            display: inline-block;
-            background: #00d2ff;
-            color: #000;
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: bold;
-            margin-top: 10px;
+        h2 {
+            text-align: center;
+            color: #333;
         }
     </style>
 </head>
 <body>
-
-    <div class="card">
-        <div class="avatar">ĐC</div>
-        <h1>Mai Thanh Đức</h1>
-        <div class="subtitle">Sinh viên Đại học ĐÔNG Á</div>
-        
-        <div class="info">
-            <p><span>Lớp học:</span> CO24A</p>
-            <p><span>Chuyên ngành:</span> Công nghệ thông tin</p>
-            <p><span>Mục tiêu:</span> Hoàn thành xuất sắc bài kiểm tra thực hành DevOps!</p>
-        </div>
-
-        <div class="badge">🚀 CI/CD Pipeline Success with Jenkins & Telegram</div>
+    <div class="container">
+        <h2>Danh Sách Công Việc (Todo)</h2>
+        <p>Ứng dụng tích hợp Jenkins CI/CD và Vercel. (Test Auto Trigger thành công!)</p>
     </div>
-
 </body>
 </html>
