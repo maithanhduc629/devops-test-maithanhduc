@@ -5,6 +5,8 @@ pipeline {
         TELEGRAM_BOT_TOKEN = '8926239435:AAGKiSWAzg-nWlEOm5GDOY2evXPjMOpBinI'
         TELEGRAM_CHAT_ID = '8678496989'
         VERCEL_PROJECT_URL = 'https://supabase-todo-d9nqvgtkb-maithanhduc629-9178.vercel.app/'
+        // Đổi thành true nếu muốn test lỗi (Failure), false nếu muốn chạy thành công (Success)
+        FORCE_FAIL = true 
     }
 
     stages {
@@ -28,7 +30,13 @@ pipeline {
         stage('Build project') {
             steps {
                 echo 'Đang build project...'
-                sh 'npm run build || echo "Project built successfully!"'
+                script {
+                    if (env.FORCE_FAIL == 'true') {
+                        error('Cố tình làm lỗi pipeline để test debug!')
+                    } else {
+                        sh 'npm run build || echo "Project built successfully!"'
+                    }
+                }
             }
         }
 
@@ -62,4 +70,5 @@ pipeline {
                 sh "curl -s -X POST https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage -d chat_id=${env.TELEGRAM_CHAT_ID} -d text=\"${failMsg}\""
             }
         }
-    
+    }
+}
